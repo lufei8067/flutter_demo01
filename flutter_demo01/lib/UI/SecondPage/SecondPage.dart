@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class SecondPage extends StatefulWidget {
@@ -12,24 +11,35 @@ class SecondPage extends StatefulWidget {
 }
 
 class _SecondPageState extends State<SecondPage> {
-  final _controller = StreamController();
+  final _controller = StreamController.broadcast();
+  final _scoreController = StreamController.broadcast();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: StreamBuilder(
-          stream: _controller.stream,
+          stream: _scoreController.stream.transform(TallyTransformer()),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return Text("You entered: ${snapshot.data}");
+              print(snapshot.data);
+
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("答对: ${snapshot.data[0]}"),
+                  Text("💪🏻走读生加油💪🏻"),
+                  Text("答错: ${snapshot.data[1]}")
+                ],
+              );
             }
-            return Text("waiting...");
+            return Text("请陆雨萱答题");
           },
         ),
       ),
       body: Stack(
         children: [
-          Puzzle(),
+          Puzzle(_controller.stream, _scoreController),
           Align(
             alignment: Alignment.bottomCenter,
             child: KeyPad(_controller),
@@ -43,11 +53,42 @@ class _SecondPageState extends State<SecondPage> {
   void dispose() {
     super.dispose();
     _controller.close();
+    _scoreController.close();
   }
+}
+
+//汇总
+class TallyTransformer implements StreamTransformer {
+  int iCorrect = 0;
+  int iMistake = 0;
+  StreamController _controller = StreamController();
+
+  @override
+  Stream bind(Stream stream) {
+    stream.listen((event) {
+      //sum += event;
+      if (event == 5) {
+        iCorrect += 1;
+      } else {
+        iMistake += 1;
+      }
+
+      _controller.add([iCorrect, iMistake]);
+    });
+
+    return _controller.stream;
+  }
+
+  @override
+  StreamTransformer<RS, RT> cast<RS, RT>() => StreamTransformer.castFrom(this);
 }
 
 //数字
 class Puzzle extends StatefulWidget {
+  final inputStream;
+  final scoreStream;
+
+  Puzzle(this.inputStream, this.scoreStream);
   @override
   _PuzzleState createState() => _PuzzleState();
 }
@@ -59,29 +100,38 @@ class _PuzzleState extends State<Puzzle> with SingleTickerProviderStateMixin {
 
   AnimationController _controller;
 
-  reset() {
+  reset([from = 0.0]) {
     a = Random().nextInt(5) + 1;
     b = Random().nextInt(5);
-    x = Random().nextDouble() * 300;
+    x = Random().nextDouble() * 300; //MediaQuery.of(context).size.width
     color = Colors.primaries[Random().nextInt(Colors.primaries.length)][200];
+    _controller.duration =
+        Duration(milliseconds: Random().nextInt(5000) + 10000);
+    _controller.forward(from: from);
   }
 
   @override
   void initState() {
     _controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 5))
+        AnimationController(vsync: this, duration: Duration(seconds: 10))
           ..forward();
-
     reset();
-    _controller.forward(from: Random().nextDouble());
 
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         reset();
-        _controller.forward(from: 0.0);
+        //-
+        widget.scoreStream.add(-5);
       }
     });
-    //..repeat();
+
+    widget.inputStream.listen((input) {
+      if (input == a + b) {
+        reset();
+        //+
+        widget.scoreStream.add(5);
+      }
+    });
 
     super.initState();
   }
@@ -95,12 +145,13 @@ class _PuzzleState extends State<Puzzle> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    //MediaQuery.of(context).size.height
     return AnimatedBuilder(
         animation: _controller,
         builder: (BuildContext context, child) {
           return Positioned(
               left: x,
-              top: 400 * _controller.value,
+              top: 700 * _controller.value - 100,
               child: Container(
                 decoration: BoxDecoration(
                   color: color,

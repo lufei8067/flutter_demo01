@@ -11,13 +11,13 @@ class NavHomePage extends StatefulWidget {
 
 class _NavHomePageState extends State<NavHomePage> {
   final List<BottomNavigationBarItem> bottomTabs = [
-    BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), label: "数学"),
-    BottomNavigationBarItem(icon: Icon(CupertinoIcons.search), label: "语文"),
+    BottomNavigationBarItem(icon: Icon(CupertinoIcons.location), label: "语文"),
+    BottomNavigationBarItem(icon: Icon(CupertinoIcons.map), label: "数学"),
+    BottomNavigationBarItem(icon: Icon(CupertinoIcons.down_arrow), label: '画画'),
     BottomNavigationBarItem(
-        icon: Icon(CupertinoIcons.shopping_cart), label: '画画'),
+        icon: Icon(CupertinoIcons.envelope_badge), label: '英语'),
     BottomNavigationBarItem(
-        icon: Icon(CupertinoIcons.profile_circled), label: '英语'),
-    BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), label: "音乐"),
+        icon: Icon(CupertinoIcons.music_house), label: "音乐"),
   ];
 
   final List tabBodies = [
