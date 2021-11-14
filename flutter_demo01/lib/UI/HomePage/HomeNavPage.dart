@@ -1,31 +1,26 @@
 import 'dart:math';
 import 'package:flutter/material.dart'; // material风格
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_demo01/UI/HomePage/FirstPage.dart';
+import 'package:flutter_demo01/UI/FirstPage/FirstPage.dart';
 import 'package:flutter_demo01/UI/SecondPage/SecondPage.dart'; // ios风格
 
-class NavHomePage extends StatefulWidget {
+class HomeNavPage extends StatefulWidget {
   @override
-  _NavHomePageState createState() => _NavHomePageState();
+  _HomeNavPageState createState() => _HomeNavPageState();
 }
 
-class _NavHomePageState extends State<NavHomePage> {
+class _HomeNavPageState extends State<HomeNavPage> {
   final List<BottomNavigationBarItem> bottomTabs = [
-    BottomNavigationBarItem(icon: Icon(CupertinoIcons.location), label: "语文"),
-    BottomNavigationBarItem(icon: Icon(CupertinoIcons.map), label: "数学"),
-    BottomNavigationBarItem(icon: Icon(CupertinoIcons.down_arrow), label: '画画'),
+    BottomNavigationBarItem(icon: Icon(CupertinoIcons.location), label: "首页"),
+    BottomNavigationBarItem(icon: Icon(CupertinoIcons.map), label: "数据"),
+    BottomNavigationBarItem(icon: Icon(CupertinoIcons.down_arrow), label: '收益'),
     BottomNavigationBarItem(
-        icon: Icon(CupertinoIcons.envelope_badge), label: '英语'),
-    BottomNavigationBarItem(
-        icon: Icon(CupertinoIcons.music_house), label: "音乐"),
+        icon: Icon(CupertinoIcons.envelope_badge), label: '我'),
   ];
 
   final List tabBodies = [
     FirstPage(),
     SecondPage(),
-    Container(
-      color: Colors.primaries[Random().nextInt(Colors.primaries.length)][200],
-    ),
     Container(
       color: Colors.primaries[Random().nextInt(Colors.primaries.length)][200],
     ),
