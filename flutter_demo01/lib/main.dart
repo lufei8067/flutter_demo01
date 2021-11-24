@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'UI/HomePage/HomeNavPage.dart';
+import 'UI/Base/Base_Tabbar.dart';
 
 void collectLog(String line) {
   //... //收集日志，如存储在本地等
@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomeNavPage(),
+      home: BaseTabBar(),
     );
   }
 }

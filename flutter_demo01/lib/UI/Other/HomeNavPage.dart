@@ -1,8 +1,11 @@
 import 'dart:math';
 import 'package:flutter/material.dart'; // material风格
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_demo01/UI/FirstPage/FirstPage.dart';
-import 'package:flutter_demo01/UI/SecondPage/SecondPage.dart'; // ios风格
+import 'package:flutter_demo01/Common/SkinMgr.dart';
+
+import 'FirstPage.dart';
+import 'SecondPage.dart';
+
 
 class HomeNavPage extends StatefulWidget {
   @override
@@ -11,7 +14,10 @@ class HomeNavPage extends StatefulWidget {
 
 class _HomeNavPageState extends State<HomeNavPage> {
   final List<BottomNavigationBarItem> bottomTabs = [
-    BottomNavigationBarItem(icon: Icon(CupertinoIcons.location), label: "首页"),
+    BottomNavigationBarItem(
+        //icon: Icon(CupertinoIcons.location),
+        icon: Image.asset('assets/images/ic_home.png'),
+        label: "首页"),
     BottomNavigationBarItem(icon: Icon(CupertinoIcons.map), label: "数据"),
     BottomNavigationBarItem(icon: Icon(CupertinoIcons.down_arrow), label: '收益'),
     BottomNavigationBarItem(
@@ -34,6 +40,8 @@ class _HomeNavPageState extends State<HomeNavPage> {
   @override
   void initState() {
     super.initState();
+
+    SkinMgr.setSkinIndex(0);
   }
 
   @override
