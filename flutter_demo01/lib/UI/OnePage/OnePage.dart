@@ -1,9 +1,14 @@
 import 'package:badges/badges.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_demo01/Common/SkinMgr.dart';
 import 'package:flutter_demo01/common/Image_utils.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:sprintf/sprintf.dart';
+
+import 'Account/AccountHome.dart';
+import 'Team/CitySelectListPage.dart';
+import 'Team/TeamPage.dart';
 
 class OnePage extends StatefulWidget {
   const OnePage({Key key}) : super(key: key);
@@ -294,9 +299,31 @@ class _OnePageState extends State<OnePage> {
       ),
       onTap: () {
         print("$index");
+        _openPage(index);
       },
       //onTap: () => _clickItemCell(context, index, _img),
     );
+  }
+
+  _openPage(int index) {
+    if (index == 0) {
+      Navigator.push(context, CupertinoPageRoute(builder: (context) {
+        return AccountHomeView(
+          strTitle: "账户",
+        );
+      }));
+    } else if (index == 1) {
+      Navigator.push(context, CupertinoPageRoute(builder: (context) {
+        // return CitySelectPage(
+        //     //strTitle: "账户",
+        //     );
+        return TeamPage(strTitle: "团队");
+      }));
+    } else {
+      Navigator.push(context, CupertinoPageRoute(builder: (context) {
+        return CitySelectListPage();
+      }));
+    }
   }
 
   //轮播图

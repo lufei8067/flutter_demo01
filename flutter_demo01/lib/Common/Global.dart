@@ -6,7 +6,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
-import 'package:fluttertoast/fluttertoast.dart';
+//import 'package:fluttertoast/fluttertoast.dart';
 
 import 'SkinMgr.dart';
 
@@ -42,15 +42,15 @@ class Global {
     paddingBottom = queryData.padding.bottom;
   }
 
-  static void ShowError(String msg, {Toast timeLen = Toast.LENGTH_SHORT}) {
-    //TradeLog.showErr(msg);
-    Fluttertoast.showToast(
-        gravity: ToastGravity.CENTER,
-        msg: msg,
-        toastLength: timeLen,
-        textColor: SkinMgr.Font,
-        backgroundColor: SkinMgr.BtnBg);
-  }
+  // static void ShowError(String msg, {Toast timeLen = Toast.LENGTH_SHORT}) {
+  //   //TradeLog.showErr(msg);
+  //   Fluttertoast.showToast(
+  //       gravity: ToastGravity.CENTER,
+  //       msg: msg,
+  //       toastLength: timeLen,
+  //       textColor: SkinMgr.Font,
+  //       backgroundColor: SkinMgr.BtnBg);
+  // }
 
 //索引转枚举
   static T ToEnum<T>(List<T> values, int value) {
@@ -78,5 +78,33 @@ class Global {
           ? DeviceOrientation.landscapeLeft
           : DeviceOrientation.landscapeRight
     ]);
+  }
+
+  //通用导航栏
+  static PreferredSizeWidget getNavigationBar(
+      BuildContext context, String strTitle,
+      {List<Widget> actions, Widget title, Color color, Color backColor}) {
+    return AppBar(
+      backgroundColor: color ?? SkinMgr.Bg,
+      elevation: 0,
+      centerTitle: true,
+      leading: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          Navigator.maybePop(context);
+        },
+        child: Icon(
+          Icons.arrow_back_ios,
+          color: backColor ?? SkinMgr.Font,
+          size: 22,
+        ),
+      ),
+      title: title ??
+          Text(
+            strTitle,
+            style: TextStyle(color: SkinMgr.Font, fontSize: 18),
+          ),
+      actions: actions,
+    );
   }
 }

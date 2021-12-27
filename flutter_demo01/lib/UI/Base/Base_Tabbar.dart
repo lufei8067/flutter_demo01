@@ -8,8 +8,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_demo01/Common/Global.dart';
 import 'package:flutter_demo01/Common/SkinMgr.dart';
 import 'package:flutter_demo01/UI/OnePage/OnePage.dart';
+import 'package:flutter_demo01/UI/TowPage/TowPage.dart';
 import 'package:flutter_demo01/common/Image_utils.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 
@@ -21,7 +23,7 @@ class BaseTabBar extends StatefulWidget {
 
 class _BaseTabBarState extends State<BaseTabBar> {
   int _currentIndex = 0;
-  List<Widget> _pageList = [OnePage(), Container(), Container()];
+  List<Widget> _pageList = [OnePage(), TowPage(), Container()];
   static double _iconWH = 24.0;
   static double _fontSize = 10.0;
   Color selColor = SkinMgr.Blue;
@@ -67,6 +69,8 @@ class _BaseTabBarState extends State<BaseTabBar> {
 
   @override
   Widget build(BuildContext context) {
+    Global.Init(context); //放在connectlayer里面
+
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,

@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_demo01/common/Global.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+//import 'package:fluttertoast/fluttertoast.dart';
 // import 'package:flutter_app/Global.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -123,7 +123,7 @@ class NetClient {
 
   static void showTip(dynamic e) {
     if (e is SocketException) {
-      Global.ShowError("网络连接不可用", timeLen: Toast.LENGTH_LONG);
+      //Global.ShowError("网络连接不可用", timeLen: Toast.LENGTH_LONG);
     }
   }
 }
