@@ -11,6 +11,8 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_demo01/Common/Global.dart';
 import 'package:flutter_demo01/Common/SkinMgr.dart';
 import 'package:flutter_demo01/UI/OnePage/OnePage.dart';
+import 'package:flutter_demo01/UI/Other/testPage1.dart';
+import 'package:flutter_demo01/UI/Other/LoginPage.dart';
 import 'package:flutter_demo01/UI/TowPage/TowPage.dart';
 import 'package:flutter_demo01/common/Image_utils.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
@@ -23,7 +25,7 @@ class BaseTabBar extends StatefulWidget {
 
 class _BaseTabBarState extends State<BaseTabBar> {
   int _currentIndex = 0;
-  List<Widget> _pageList = [OnePage(), TowPage(), Container()];
+  List<Widget> _pageList = [OnePage(), TestPage1(), LoginPage()];
   static double _iconWH = 24.0;
   static double _fontSize = 10.0;
   Color selColor = SkinMgr.Blue;
